@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/app.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Rent a Car</title>
+</head>
+<body>
+    <section id="header">
+        <div id="menu">
+            <div id="logo">
+                <img src="/static/imagens/logo.png" width="84">
+            </div>
+            <nav>
+                <ul class="poppins-light">
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/veiculos.html">Veículos</a></li>
+                    <li><a href="/cadastrar_veiculo.html">Cadastrar Veículos</a></li>
+                    <li><a href="/contato.html">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+    
+    <section id="content">        
+        <main id="main">
+          <section id="Veiculos">
+            <h1>Veículos Disponíveis</h1>
+            <div class="listaVeiculos">
+                {% for veiculo in veiculos %}
+                <div class="blocosVeiculos">
+                    <img src="/static/imagens/{{ veiculo.imagem }}" alt="{{ veiculo.modelo }}">
+                    <div class="legenda">
+                        <span class="nome">{{ veiculo.modelo }}</span>
+                        <span class="preco">R$ {{ veiculo.preco }}</span>
+                        <a href="/editar_veiculo?id={{ veiculo.id }}">Editar</a>
+                        <a href="/excluir_veiculo?id={{ veiculo.id }}" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                        <form method="POST" action="/reservar/{{ veiculo.id }}">
+                            <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
+                            <button type="submit">Reservar</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+          </section>
+        </main>
+    </section>
+
+   
+    <footer>
+        Todos os Direitos Reservados - John - 2024 - V1
+    </footer>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

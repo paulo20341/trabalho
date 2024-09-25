@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Veículos{% endblock %}
+
+{% block conte %}
+    <style>
+        /* Para a tabela */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+            background-color: #f9f9f9;
+        }
+        .styled-table thead tr {
+            background-color: #009879;
+            color: white;
+            text-align: left;
+        }
+        .styled-table th, .styled-table td {
+            padding: 12px 15px;
+        }
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        /* Para os botões */
+        .action-btn {
+            padding: 8px 12px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .action-btn.edit {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .action-btn.delete {
+            background-color: #f44336;
+            color: white;
+        }
+        .action-btn.add {
+            background-color: #2196F3;
+            color: white;
+            display: inline-block;
+        }
+
+        /* Texto de alerta quando não há dados */
+        .no-data {
+            font-size: 18px;
+            color: #555;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Alinhamento da seção */
+        #veiculos-section {
+            padding: 20px;
+            max-width: 80%;
+            margin: auto;
+        }
+
+        /* Estilização de h1 */
+        h1.poppins-bold {
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+
+    <section id="veiculos-section">
+        <h1 class="poppins-bold">Veículos Disponíveis</h1>
+        
+        {% if veiculos %}
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Modelo</th>
+                        <th>Marca</th>
+                        <th>Ano</th>
+                        <th>Placa</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for veiculo in veiculos %}
+                    <tr>
+                        <td>{{ veiculo.modelo }}</td>
+                        <td>{{ veiculo.marca }}</td>
+                        <td>{{ veiculo.ano }}</td>
+                        <td>{{ veiculo.placa }}</td>
+                        <td>
+                            <a class="action-btn edit" href="/veiculos/editar/{{ veiculo.id }}">Editar</a>
+                            <form action="/veiculos/excluir/{{ veiculo.id }}" method="POST" style="display:inline;">
+                                <button class="action-btn delete" type="submit" onclick="return confirm('Tem certeza que deseja excluir este veículo?')">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-data">Não há veículos cadastrados no momento.</p>
+        {% endif %}
+        
+        <a class="action-btn add" href="/veiculos/adicionar">Adicionar Novo Veículo</a>
+    </section>
+{% endblock %}

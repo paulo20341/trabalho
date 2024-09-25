@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>{% block title %}Rent a Car{% endblock %}</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        #header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+        }
+
+        #menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .car-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+            flex: 1; /* Para ocupar o espaço disponível e empurrar o footer para o fundo */
+        }
+
+        .car-gallery img {
+            width: 250px;
+            height: auto;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+{% block manu %}
+    <section id="header">
+        <div id="menu">
+            <div id="logo">
+                <img src="imagens/logo.png" width="84">
+            </div>
+            <nav>
+                <ul class="poppins-light">
+                    <li><a href="/menu">Home</a></li>
+                    <li><a href="/veiculos">Veículos</a></li>
+                    {% if session.get('username') == 'admin' %}
+                    <li><a href="/formularios">Cadastrar Veículos</a></li>
+                    {% endif %}
+                    <li>
+                    {% if session.get('username') %}
+                        <p>{{ session['username'] }}</p>
+                        <a href="/logout">Encerrar a Sessão</a>
+                    {% else %}
+                        <p>não iniciou a Sessão</p>
+                        <a href="/login">Iniciar Sessão</a>
+                    {% endif %}
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+{% endblock %}
+
+{% block conte %}
+    <div class="car-gallery">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Nissan_GT-R_R35.jpg/250px-Nissan_GT-R_R35.jpg" alt="Nissan GTR">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Ferrari_488_GTB_-_Burgundy_Sienna_-_front.jpg/250px-Ferrari_488_GTB_-_Burgundy_Sienna_-_front.jpg" alt="Ferrari">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Lamborghini_Aventador_SVJ_%2840869307067%29.jpg/250px-Lamborghini_Aventador_SVJ_%2840869307067%29.jpg" alt="Lamborghini">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Ford_Mustang_GT.jpg/250px-Ford_Mustang_GT.jpg" alt="Ford Mustang">
+    </div>
+{% endblock %}
+
+<footer>
+    Todos os Direitos Reservados - Paulo Eduardo - 2024 -
+</footer>
+
+</body>
+</html>
